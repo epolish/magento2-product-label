@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">product_label_listing.product_label_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>product_label_columns</spinner>
+        <deps>
+            <dep>product_label_listing.product_label_listing_data_source</dep>
+        </deps>
+        <buttons>
+            <button name="add_new_product_label_button">
+                <url path="product_label/index/edit"/>
+                <label translate="true">Add New Product Label</label>
+                <class>action-primary</class>
+            </button>
+        </buttons>
+    </settings>
+    <dataSource name="product_label_listing_data_source" component="Polish_ProductLabel/js/grid/provider">
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Polish_ProductLabel::list</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="product_label_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <filters name="listing_filters">
+            <filterSelect name="store_ids" provider="${ $.parentName }">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="component" xsi:type="string">Polish_ProductLabel/js/form/element/store-ui-select</item>
+                        <item name="template" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                        <item name="dataScope" xsi:type="string">store_ids</item>
+                        <item name="label" xsi:type="string" translate="true">Store View</item>
+                        <item name="chipsEnabled" xsi:type="number">1</item>
+                    </item>
+                </argument>
+                <settings>
+                    <options class="Polish\ProductLabel\Ui\Component\Listing\Columns\StoreOptionsOptGroup"/>
+                </settings>
+            </filterSelect>
+        </filters>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <massaction name="listing_massaction">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to delete selected items?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="product_label/index/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+            <action name="duplicate">
+                <settings>
+                    <confirm>
+                        <message translate="true">
+                            Are you sure you want to duplicate selected items? It can take a long time.
+                        </message>
+                        <title translate="true">Duplicate items</title>
+                    </confirm>
+                    <url path="product_label/index/massDuplicate"/>
+                    <type>duplicate</type>
+                    <label translate="true">Duplicate</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="product_label_columns" class="Magento\Ui\Component\Listing\Columns">
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="entity_id" sortOrder="1">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+        <column name="title" sortOrder="10">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Title</label>
+            </settings>
+        </column>
+        <column name="description" sortOrder="20">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Description</label>
+            </settings>
+        </column>
+        <column name="is_active" sortOrder="30" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <options class="Polish\ProductLabel\Model\Source\IsActive"/>
+                <filter>select</filter>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+        <column name="store_ids" sortOrder="40" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <options class="Polish\ProductLabel\Ui\Component\Listing\Columns\StoreOptions"/>
+                <dataType>select</dataType>
+                <sortable>false</sortable>
+                <label translate="true">Store View</label>
+            </settings>
+        </column>
+        <column name="image" sortOrder="5" component="Magento_Ui/js/grid/columns/thumbnail" class="Polish\ProductLabel\Ui\Component\Listing\Columns\ImageColumn">
+            <settings>
+                <hasPreview>1</hasPreview>
+                <label translate="true">Image</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+        <actionsColumn name="actions" sortOrder="200" class="Polish\ProductLabel\Ui\Component\Listing\Columns\Actions">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

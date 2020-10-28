@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <block name="product.info.label" template="Polish_ProductLabel::label/list.phtml" ifconfig="product_label/general/enabled">
+            <arguments>
+                <argument name="view_model_product_label_list" xsi:type="object">Polish\ProductLabel\ViewModel\ProductLabelList</argument>
+            </arguments>
+        </block>
+        <move element="product.info.label" destination="product.info.price" after="product.info.sku"/>
+    </body>
+</page>

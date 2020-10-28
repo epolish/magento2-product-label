@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="polish" translate="label" sortOrder="10">
+            <label>Polish</label>
+        </tab>
+        <section id="product_label" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Product Label</label>
+            <tab>polish</tab>
+            <resource>Polish_ProductLabel::product_label_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Configuration</label>
+                <attribute type="expanded">1</attribute>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Product Label On Frontend</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="placeholder" translate="label" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Product Label Image Placeholders</label>
+                <clone_fields>1</clone_fields>
+                <clone_model>Magento\Catalog\Model\Config\CatalogClone\Media\Image</clone_model>
+                <field id="placeholder" type="image" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">catalog/product_label/placeholder</upload_dir>
+                    <base_url type="media" scope_info="1">catalog/product_label/placeholder</base_url>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

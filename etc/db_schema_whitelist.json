@@ -1,0 +1,18 @@
+{
+    "product_label": {
+        "column": {
+            "entity_id": true,
+            "title": true,
+            "description": true,
+            "is_active": true,
+            "store_ids": true,
+            "image": true,
+            "conditions_serialized": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}
