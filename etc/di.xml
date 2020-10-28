@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Polish\ProductLabel\Api\Data\ProductLabelInterface" type="Polish\ProductLabel\Model\ProductLabel"/>
+    <preference for="Polish\ProductLabel\Api\Data\ProductLabelSearchResultsInterface" type="Polish\ProductLabel\Model\ProductLabelSearchResults"/>
+    <preference for="Polish\ProductLabel\Api\ProductLabelRepositoryInterface" type="Polish\ProductLabel\Model\ProductLabelRepository"/>
+    <preference for="Polish\ProductLabel\Api\ProductLabelListInterface" type="Polish\ProductLabel\Model\ProductLabelList"/>
+    <preference for="Polish\ProductLabel\Api\ProductLabelManagerInterface" type="Polish\ProductLabel\Model\ProductLabelManager"/>
+
+    <type name="Polish\ProductLabel\Ui\Component\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">product_label</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="product_label_listing_data_source" xsi:type="string">Polish\ProductLabel\Ui\Component\DataProvider\SearchResult</item>
+                <item name="product_label_data_source" xsi:type="string">Polish\ProductLabel\Ui\Component\DataProvider\SearchResult</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Polish\ProductLabel\Model\ProductLabel\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">catalog/tmp/product_label</argument>
+            <argument name="basePath" xsi:type="string">catalog/product_label</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+            <argument name="allowedMimeTypes" xsi:type="array">
+                <item name="jpg" xsi:type="string">image/jpg</item>
+                <item name="jpeg" xsi:type="string">image/jpeg</item>
+                <item name="gif" xsi:type="string">image/gif</item>
+                <item name="png" xsi:type="string">image/png</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Polish\ProductLabel\Controller\Adminhtml\Image\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Polish\ProductLabel\Model\ProductLabel\ImageUploader</argument>
+        </arguments>
+    </type>
+    <type name="Polish\ProductLabel\Controller\Adminhtml\Index\Save">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Polish\ProductLabel\Model\ProductLabel\ImageUploader</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Polish\ProductLabel\Model\Logger\Handler" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/PolishProductLabel.exception.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Polish\ProductLabel\Model\Logger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="debug" xsi:type="object">Polish\ProductLabel\Model\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Polish\ProductLabel\Controller\Adminhtml\Image\Upload">
+        <arguments>
+            <argument name="logger" xsi:type="object">Polish\ProductLabel\Model\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Polish\ProductLabel\Controller\Adminhtml\Index\Save">
+        <arguments>
+            <argument name="logger" xsi:type="object">Polish\ProductLabel\Model\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Polish\ProductLabel\Ui\Component\Form\DataProvider">
+        <arguments>
+            <argument name="logger" xsi:type="object">Polish\ProductLabel\Model\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Polish\ProductLabel\Model\ProductLabel\ImageUploader">
+        <arguments>
+            <argument name="logger" xsi:type="object">Polish\ProductLabel\Model\Logger</argument>
+        </arguments>
+    </type>
+</config>
